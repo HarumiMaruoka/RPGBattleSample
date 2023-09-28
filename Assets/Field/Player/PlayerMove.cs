@@ -3,13 +3,9 @@ using UnityEngine;
 using Glib.InspectorExtension;
 using Glib.HitSupport;
 
-
+[RequireComponent(typeof(CharacterController))]
 public class PlayerMove : MonoBehaviour
 {
-
-    [SerializeField]
-    private Transform _criterion;
-
     [SerializeField, InputName]
     private string _horizontalInputName;
     [SerializeField, InputName]
@@ -18,21 +14,26 @@ public class PlayerMove : MonoBehaviour
     private string _jumpInputName;
 
     [SerializeField]
-    private float _maxSpeed = 24f;
+    private float _maxHorizontalSpeed = 24f;
     [SerializeField]
-    private float _acceleration = 12f;
+    private float _horizontalAcceleration = 12f;
     [SerializeField]
-    private float _deceleration = 12f;
+    private float _horizontalDeceleration = 12f;
     [SerializeField]
     private float _jumpPower = 8f;
     [SerializeField]
     private float _groundedGravity = 200f;
     [SerializeField]
-    private float _gravity = 18f;
+    private float _midairGravity = 18f;
     [SerializeField]
-    private SphereCast _grounded;
+    private SphereCast _groundedChecker;
     [SerializeField]
     private float _rotationSpeed = 600f;
+
+    [SerializeField]
+    private Camera _criterionCamera; // 回転の基準となるカメラ
+    [SerializeField]
+    private Transform _groundedCheckerCriterion; // 接地判定用レイの基準点
 
     private CharacterController _characterController = null;
 
@@ -46,15 +47,15 @@ public class PlayerMove : MonoBehaviour
         float inputY = Input.GetAxisRaw(_verticalInputName);
         bool inputJump = Input.GetButtonDown(_jumpInputName);
 
-        Vector3 moveVector = HorizontalCalculation(_maxSpeed, new Vector2(inputX, inputY), _acceleration, _deceleration);
-        moveVector.y = VerticalCalculation(_groundedGravity, _gravity, _grounded.IsHit(this.transform), inputJump, _jumpPower);
+        Vector3 moveVector = HorizontalCalculation(_maxHorizontalSpeed, new Vector2(inputX, inputY), _horizontalAcceleration, _horizontalDeceleration);
+        moveVector.y = VerticalCalculation(_groundedGravity, _midairGravity, _groundedChecker.IsHit(_groundedCheckerCriterion), inputJump, _jumpPower);
 
         _characterController.Move(moveVector);
     }
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        _grounded.OnDrawGizmos(this.transform);
+        _groundedChecker.OnDrawGizmos(_groundedCheckerCriterion);
     }
 #endif
 
@@ -84,7 +85,7 @@ public class PlayerMove : MonoBehaviour
             if (_currentHorizontalSpeed < 0f) _currentHorizontalSpeed = 0f;
         }
 
-        var horizontalRotation = Quaternion.AngleAxis(_criterion.eulerAngles.y, Vector3.up);
+        var horizontalRotation = Quaternion.AngleAxis(_criterionCamera.transform.eulerAngles.y, Vector3.up);
         _vector = horizontalRotation * new Vector3(_lastDir.x, 0f, _lastDir.y) * _currentHorizontalSpeed;
 
         // 移動方向を向く
@@ -130,4 +131,9 @@ public class PlayerMove : MonoBehaviour
         _preIsGrounded = isGrounded;
         return _currentVerticalSpeed * Time.deltaTime;
     }
+
+    public float CurrentHorizontalSpeed => _currentHorizontalSpeed;
+    public float CurrentVerticalSpeed => _currentVerticalSpeed;
+    public float MaxHorizontalSpeed => _maxHorizontalSpeed;
+    public bool IsGrounded => _groundedChecker.IsHit(this.transform);
 }

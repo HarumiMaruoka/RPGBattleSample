@@ -40,24 +40,44 @@ namespace Battle
             _enemies.Clear();
             _allBattleActor.Clear();
 
-            // 味方を生成する。(ActorID 0番から3番を味方とする。)
+            // 味方を生成する。(一旦 ActorID 0番から3番を味方とする。)
             for (int i = 0; i < 4; i++)
             {
-                var ally = GameDataBase.Instance.ActorDataBase.IDToActor[i];
-                var allyForBattle = new BattleActorModel(ally);
+                // 戦闘用味方データを作成。
+                var allyModel = GameDataBase.Instance.ActorDataBase.IDToActor[i];
+                var battleAllyModel = new BattleActorModel(allyModel);
                 // 生成された味方をコレクションに登録する。
-                _allies.Add(allyForBattle);
-                _allBattleActor.Add(allyForBattle);
+                _allies.Add(battleAllyModel);
+                _allBattleActor.Add(battleAllyModel);
             }
 
-            // ランダムに敵を抽選する。
-            {
-                var randomActor = GameDataBase.Instance.ActorDataBase.GetRandomActorModel();
-                BattleActorModel enemy = new BattleActorModel(randomActor);
+            var encounteredEnemyIDs = SceneDataTransferObject.Instance.EncounteredEnemyIDs;
 
-                // 抽選された敵をコレクションに格納する。
-                _allBattleActor.Add(enemy);
-                _enemies.Add(enemy);
+            // 遭遇した敵IDリストが存在する場合。
+            if (encounteredEnemyIDs != null && encounteredEnemyIDs.Count != 0)
+            {
+                for (int i = 0; i < encounteredEnemyIDs.Count; i++)
+                {
+                    // 戦闘用敵データを作成。
+                    var enemyModel = GameDataBase.Instance.ActorDataBase.IDToActor[encounteredEnemyIDs[i]];
+                    BattleActorModel battleEnemyModel = new BattleActorModel(enemyModel);
+                    // 抽選された敵をコレクションに格納する。
+                    _allBattleActor.Add(battleEnemyModel);
+                    _enemies.Add(battleEnemyModel);
+                }
+            }
+            else // 遭遇した敵IDリストが存在しない場合。
+            {
+                // ランダムに敵を抽選する。
+                {
+                    Debug.LogError("遭遇した敵IDリストが存在しません。");
+                    var randomActorModel = GameDataBase.Instance.ActorDataBase.GetRandomActorModel();
+                    BattleActorModel battleEnemyModel = new BattleActorModel(randomActorModel);
+
+                    // 抽選された敵をコレクションに格納する。
+                    _allBattleActor.Add(battleEnemyModel);
+                    _enemies.Add(battleEnemyModel);
+                }
             }
 
             foreach (var ally in _allies)

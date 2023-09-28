@@ -62,6 +62,24 @@ public partial class @GameController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Next"",
+                    ""type"": ""Button"",
+                    ""id"": ""e7acd834-2550-4aba-b0fa-0acd87110d83"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Previous"",
+                    ""type"": ""Button"",
+                    ""id"": ""a238428f-1bfa-4efe-a08e-b2b3f8cfcfd7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -293,6 +311,28 @@ public partial class @GameController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Decision"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68b4c03e-127e-42ea-b12f-20c660faa461"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a44b7eb8-d738-45b2-85dc-585b9e1b86cc"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Previous"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -884,6 +924,8 @@ public partial class @GameController: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Decision = m_Player.FindAction("Decision", throwIfNotFound: true);
+        m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
+        m_Player_Previous = m_Player.FindAction("Previous", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -961,6 +1003,8 @@ public partial class @GameController: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Decision;
+    private readonly InputAction m_Player_Next;
+    private readonly InputAction m_Player_Previous;
     public struct PlayerActions
     {
         private @GameController m_Wrapper;
@@ -969,6 +1013,8 @@ public partial class @GameController: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Decision => m_Wrapper.m_Player_Decision;
+        public InputAction @Next => m_Wrapper.m_Player_Next;
+        public InputAction @Previous => m_Wrapper.m_Player_Previous;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -990,6 +1036,12 @@ public partial class @GameController: IInputActionCollection2, IDisposable
             @Decision.started += instance.OnDecision;
             @Decision.performed += instance.OnDecision;
             @Decision.canceled += instance.OnDecision;
+            @Next.started += instance.OnNext;
+            @Next.performed += instance.OnNext;
+            @Next.canceled += instance.OnNext;
+            @Previous.started += instance.OnPrevious;
+            @Previous.performed += instance.OnPrevious;
+            @Previous.canceled += instance.OnPrevious;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1006,6 +1058,12 @@ public partial class @GameController: IInputActionCollection2, IDisposable
             @Decision.started -= instance.OnDecision;
             @Decision.performed -= instance.OnDecision;
             @Decision.canceled -= instance.OnDecision;
+            @Next.started -= instance.OnNext;
+            @Next.performed -= instance.OnNext;
+            @Next.canceled -= instance.OnNext;
+            @Previous.started -= instance.OnPrevious;
+            @Previous.performed -= instance.OnPrevious;
+            @Previous.canceled -= instance.OnPrevious;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1192,6 +1250,8 @@ public partial class @GameController: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnDecision(InputAction.CallbackContext context);
+        void OnNext(InputAction.CallbackContext context);
+        void OnPrevious(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

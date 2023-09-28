@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2021598997247038489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cfc2e6e0e17ae4db335b188ec42fb6, type: 3}
+  m_Name: Talk Data
+  m_EditorClassIdentifier: 
+  _title: "\u8FD4\u4E8B2"
+  _text: "\u30CF\u30ED\u30FC"
+  _nextNodes:
+  - {fileID: -496018300603171773}
+  _position: {x: 331.20004, y: 87.999985}
+  _guid: ec56efaf752e9544eb00c71f0c106115
+--- !u!114 &-1652770389663589074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cfc2e6e0e17ae4db335b188ec42fb6, type: 3}
+  m_Name: Talk Data
+  m_EditorClassIdentifier: 
+  _title: "\u7DE0\u3081\u306E\u6328\u62F6"
+  _text: "\u3058\u3083\u3042\u306D\uFF01"
+  _nextNodes: []
+  _position: {x: 460.80002, y: -38.40001}
+  _guid: 8ebf03dff9c3a8c4d840f8a277281f1d
+--- !u!114 &-496018300603171773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cfc2e6e0e17ae4db335b188ec42fb6, type: 3}
+  m_Name: Talk Data
+  m_EditorClassIdentifier: 
+  _title: "\u7DE0\u3081\u306E\u6328\u62F6"
+  _text: "\u30B0\u30C3\u30D0\u30A4"
+  _nextNodes: []
+  _position: {x: 460.80002, y: 87.999985}
+  _guid: 613d16ae1f632a6419ad687cbdbfedce
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddaaca8618c2d24db4bf63cebca2e2d, type: 3}
+  m_Name: Sample Talk Data
+  m_EditorClassIdentifier: 
+  _rootNode: {fileID: 2423636913862166571}
+  _nodes:
+  - {fileID: 2423636913862166571}
+  - {fileID: 6378405405307537457}
+  - {fileID: 2488715233028855261}
+  - {fileID: -2021598997247038489}
+  - {fileID: -1652770389663589074}
+  - {fileID: -496018300603171773}
+--- !u!114 &2423636913862166571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6723744a0239c0409743e6d9a105fbb, type: 3}
+  m_Name: Root Node
+  m_EditorClassIdentifier: 
+  _title: 'title '
+  _text: 
+  _nextNodes:
+  - {fileID: 6378405405307537457}
+  _position: {x: 0, y: 0}
+  _guid: 7b48016bb0d367345908ff4e98df0380
+--- !u!114 &2488715233028855261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cfc2e6e0e17ae4db335b188ec42fb6, type: 3}
+  m_Name: Talk Data
+  m_EditorClassIdentifier: 
+  _title: "\u8FD4\u4E8B1"
+  _text: "\u3084\u3042"
+  _nextNodes:
+  - {fileID: -1652770389663589074}
+  _position: {x: 331, y: -38.40001}
+  _guid: 7f088b6485ee4c34ab3228750391e80a
+--- !u!114 &6378405405307537457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04cfc2e6e0e17ae4db335b188ec42fb6, type: 3}
+  m_Name: Talk Data
+  m_EditorClassIdentifier: 
+  _title: "\u6328\u62F6"
+  _text: "\u3053\u3093\u306B\u3061\u306F\uFF01"
+  _nextNodes:
+  - {fileID: 2488715233028855261}
+  - {fileID: -2021598997247038489}
+  _position: {x: 183.40002, y: 0}
+  _guid: 8667202a868dbd143bc906b8662b4e42
