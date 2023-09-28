@@ -1,6 +1,5 @@
 // 日本語対応
 using Glib.Talk;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,13 +14,23 @@ public class TalkSelectable : MonoBehaviour
     [SerializeField]
     private Color _hoveredColor = Color.blue;
 
+    private Glib.Talk.Node _node;
+
     public void Initialize(Node node)
     {
+        _node = node;
+        _text.text = _node.Text;
+
         node.OnHovered += Hovered;
         node.OnUnhovered += Unhovered;
 
         if (node.IsHovered) Hovered();
         else Unhovered();
+    }
+    public void Dispose()
+    {
+        _node.OnHovered -= Hovered;
+        _node.OnUnhovered -= Unhovered;
     }
     public void Hovered()
     {

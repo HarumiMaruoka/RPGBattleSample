@@ -11,4 +11,9 @@ public class TalkText : MonoBehaviour
     {
         _text.text = text;
     }
+
+    public void ClearText()
+    {
+        _text.text = null;
+    }
 }

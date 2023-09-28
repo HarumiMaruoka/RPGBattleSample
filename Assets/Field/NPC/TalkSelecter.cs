@@ -10,22 +10,13 @@ public class TalkSelecter : MonoBehaviour
     private TalkSelectable _talkSelectablePrefab;
 
     private readonly List<TalkSelectable> _alive = new List<TalkSelectable>();
-    private readonly Stack<TalkSelectable> _disposed = new Stack<TalkSelectable>();
 
     public void CreateSelectables(IReadOnlyList<Glib.Talk.Node> nodes)
     {
         foreach (var node in nodes)
         {
             TalkSelectable selectable = null;
-            if (_disposed.Count == 0)
-            {
-                selectable = GameObject.Instantiate(_talkSelectablePrefab, _selectableParent);
-            }
-            else
-            {
-                selectable = _disposed.Pop();
-                selectable.gameObject.SetActive(true);
-            }
+            selectable = GameObject.Instantiate(_talkSelectablePrefab, _selectableParent);
             selectable.Initialize(node);
             _alive.Add(selectable);
         }
@@ -34,8 +25,8 @@ public class TalkSelecter : MonoBehaviour
     {
         foreach (var selectable in _alive)
         {
-            _disposed.Push(selectable);
-            selectable.gameObject.SetActive(false);
+            selectable.Dispose();
+            Destroy(selectable.gameObject);
         }
         _alive.Clear();
     }

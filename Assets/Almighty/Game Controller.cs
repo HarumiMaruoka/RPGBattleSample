@@ -306,10 +306,10 @@ public partial class @GameController: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4f061139-5b74-4612-9ff6-df7724004859"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Decision"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

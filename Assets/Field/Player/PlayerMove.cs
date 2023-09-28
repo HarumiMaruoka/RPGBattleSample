@@ -12,7 +12,6 @@ public class PlayerMove : MonoBehaviour
     private string _verticalInputName;
     [SerializeField, InputName]
     private string _jumpInputName;
-
     [SerializeField]
     private float _maxHorizontalSpeed = 24f;
     [SerializeField]
@@ -36,19 +35,52 @@ public class PlayerMove : MonoBehaviour
     private Transform _groundedCheckerCriterion; // 接地判定用レイの基準点
 
     private CharacterController _characterController = null;
+    private PlayerStateController _playerStateController = null;
+
+    private bool CanMove
+    {
+        get
+        {
+            bool result =
+                !_playerStateController.HasState(FieldPlayerState.Talk); // 会話中は移動できない。
+
+            return result;
+        }
+    }
 
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
+        _playerStateController = GetComponent<PlayerStateController>();
     }
     private void Update()
     {
-        float inputX = Input.GetAxisRaw(_horizontalInputName);
-        float inputY = Input.GetAxisRaw(_verticalInputName);
-        bool inputJump = Input.GetButtonDown(_jumpInputName);
+        _playerStateController.RemoveState(FieldPlayerState.Run);
+        _playerStateController.RemoveState(FieldPlayerState.Rise);
+        _playerStateController.RemoveState(FieldPlayerState.Fall);
+
+        float inputX = 0f;
+        float inputY = 0f;
+        bool inputJump = false;
+
+        if (CanMove)
+        {
+            inputX = Input.GetAxisRaw(_horizontalInputName);
+            inputY = Input.GetAxisRaw(_verticalInputName);
+            inputJump = Input.GetButtonDown(_jumpInputName);
+        }
+
 
         Vector3 moveVector = HorizontalCalculation(_maxHorizontalSpeed, new Vector2(inputX, inputY), _horizontalAcceleration, _horizontalDeceleration);
-        moveVector.y = VerticalCalculation(_groundedGravity, _midairGravity, _groundedChecker.IsHit(_groundedCheckerCriterion), inputJump, _jumpPower);
+        moveVector.y = VerticalCalculation(_groundedGravity, _midairGravity, IsGrounded, inputJump, _jumpPower);
+
+        bool isRun = new Vector2(moveVector.x, moveVector.z).sqrMagnitude > 0.001f;
+        bool isRise = moveVector.y > 0.001f;
+        bool isFall = moveVector.y < 0.001f;
+
+        if (isRun) _playerStateController.AddState(FieldPlayerState.Run);
+        if (!IsGrounded && isRise) _playerStateController.AddState(FieldPlayerState.Rise);
+        if (!IsGrounded && isFall) _playerStateController.AddState(FieldPlayerState.Fall);
 
         _characterController.Move(moveVector);
     }
@@ -135,5 +167,5 @@ public class PlayerMove : MonoBehaviour
     public float CurrentHorizontalSpeed => _currentHorizontalSpeed;
     public float CurrentVerticalSpeed => _currentVerticalSpeed;
     public float MaxHorizontalSpeed => _maxHorizontalSpeed;
-    public bool IsGrounded => _groundedChecker.IsHit(this.transform);
+    public bool IsGrounded => _groundedChecker.IsHit(_groundedCheckerCriterion);
 }

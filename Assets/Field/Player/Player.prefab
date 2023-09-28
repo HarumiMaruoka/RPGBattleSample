@@ -989,9 +989,12 @@ GameObject:
   - component: {fileID: 2674743806204617098}
   - component: {fileID: 7821155550848500355}
   - component: {fileID: 5866666020872688551}
+  - component: {fileID: 2674743807315578819}
+  - component: {fileID: 2674743807315578820}
+  - component: {fileID: 543450652521875942}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1025,7 +1028,7 @@ Animator:
   m_GameObject: {fileID: 3017394724652555481}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 81bb9eea30387e442899949a80011e55, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a5f974d8f20c3f4e9a651948cbfd7a4, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1051,9 +1054,9 @@ MonoBehaviour:
   _horizontalInputName: Horizontal
   _verticalInputName: Vertical
   _jumpInputName: Jump
-  _maxHorizontalSpeed: 24
-  _horizontalAcceleration: 12
-  _horizontalDeceleration: 12
+  _maxHorizontalSpeed: 6
+  _horizontalAcceleration: 6
+  _horizontalDeceleration: 24
   _jumpPower: 8
   _groundedGravity: 200
   _midairGravity: 18
@@ -1100,8 +1103,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdcd00e80c0eb98469af0905dd2e3c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _horizontalMoveSpeedAnimParamName: 
-  _isGroundedAnimParamName: 
+  _horizontalMoveSpeedAnimParamName: Horizontal Move Speed
+  _isGroundedAnimParamName: Is Grounded
+--- !u!114 &2674743807315578819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3017394724652555481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb347541cb695a448e7ef2bd5b63a79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyTagName: Enemy
+  _battleSceneName: Battle Test Scene
+--- !u!114 &2674743807315578820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3017394724652555481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34c9c7cec81ad544482a8843f0d85a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _raycast:
+    _dir: {x: 0, y: 0, z: 1}
+    _maxDistance: 1.19
+    _layerMask:
+      serializedVersion: 2
+      m_Bits: 128
+    _offset: {x: 0, y: 1.3, z: 0}
+    _isDrawGizmo: 1
+    _hitColor: {r: 1, g: 0, b: 0, a: 1}
+    _noHitColor: {r: 0, g: 0, b: 1, a: 1}
+--- !u!114 &543450652521875942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3017394724652555481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a10cb267a269114dae61af1142a7ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3300982845690594784
 GameObject:
   m_ObjectHideFlags: 0

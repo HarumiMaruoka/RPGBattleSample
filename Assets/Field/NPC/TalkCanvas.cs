@@ -14,12 +14,14 @@ public class TalkCanvas : MonoBehaviour
     {
         _current = null;
     }
-
+    [SerializeField]
+    private GameObject _uiRootObject;
     [SerializeField]
     private TalkText _talkText;
     [SerializeField]
     private TalkSelecter _talkSelecter;
 
+    public GameObject UIRootObject => _uiRootObject;
     public TalkText TalkText => _talkText;
     public TalkSelecter TalkSelecter => _talkSelecter;
 }
