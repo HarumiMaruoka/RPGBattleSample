@@ -1,18 +1,19 @@
 // 日本語対応
-using Actor;
+using System;
+using Sky.Actor;
 
-namespace Battle
+namespace Sky
 {
-    public static class DamageCalculator
+    namespace Battle
     {
-        public static void Attack(this ActorModel from, ActorModel to)
+        public static class DamageCalculator
         {
-            var damageValue = from.TotalAttributeStatus.Attack; // 攻撃者の攻撃力を取得。
-
-            to.Damage(damageValue);
-
-            UnityEngine.Debug.Log(from.Name + "の攻撃によって" + to.Name + "へ" + damageValue + " ダメージ！");
-            UnityEngine.Debug.Log(to.Name + "の残りHP: " + to.ResourceStatus.Hp);
+            public static int GetAttackCalculationResult(ActorModel actionActor, ActorModel targetActor)
+            {
+                // 一旦 行動アクターの攻撃力分返す。
+                var damageValue = actionActor.TotalAttributeStatus.Attack;
+                return damageValue;
+            }
         }
     }
 }

@@ -1,59 +1,63 @@
 // 日本語対応
 using System.Collections.Generic;
 using UnityEngine;
+using Sky.DataBase;
 
-namespace Battle
+namespace Sky
 {
-    public class SelectCommand : BattleStateBase
+    namespace Battle
     {
-        private CommandSelecter<BattleSkillModel> _commandSelecter = new CommandSelecter<BattleSkillModel>();
-
-        public CommandSelecter<BattleSkillModel> CommandSelecter => _commandSelecter;
-        public override void Enter()
+        public class SelectCommand : BattleStateBase
         {
-            // 選択可能コマンドリストを作成。
-            var selectable = new List<BattleSkillModel>();
+            private CommandSelecter<BattleSkillModel> _commandSelecter = new CommandSelecter<BattleSkillModel>();
 
-            foreach (var skillID in _battleSystem.ActiveActor.Myself.SkillData.UsedSkillIDs)
+            public CommandSelecter<BattleSkillModel> CommandSelecter => _commandSelecter;
+            public override void Enter()
             {
-                selectable.Add(new BattleSkillModel(GameDataBase.Instance.SkillDataBase.IDToSkill[skillID]));
-            }
+                // 選択可能コマンドリストを作成。
+                var selectable = new List<BattleSkillModel>();
 
-            // 選択可能コマンドリストの割り当て。
-            _commandSelecter.SetSelectableItems(selectable);
+                foreach (var skillID in _battleSystem.ActiveActor.Myself.SkillData.UsedSkillIDs)
+                {
+                    selectable.Add(new BattleSkillModel(DataBase.GameDataBase.Instance.SkillDataBase.IDToSkill[skillID]));
+                }
 
-            // デバッグ用テキストを更新。
-            UpdateDebugText();
-        }
-        public override void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                _commandSelecter.Next();
+                // 選択可能コマンドリストの割り当て。
+                _commandSelecter.SetSelectableItems(selectable);
+
+                // デバッグ用テキストを更新。
                 UpdateDebugText();
-
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            public override void Update()
             {
-                _commandSelecter.Previous();
-                UpdateDebugText();
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    _commandSelecter.Next();
+                    UpdateDebugText();
 
+                }
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    _commandSelecter.Previous();
+                    UpdateDebugText();
+
+                }
+
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    _battleSystem.SelectSkill(_commandSelecter.Hover);
+
+                    var nextState = _stateMachine.States[BattleState.SelectTarget];
+                    _stateMachine.TransitionTo(nextState);
+                }
             }
 
-            if (Input.GetKeyDown(KeyCode.Return))
+            private void UpdateDebugText()
             {
-                _battleSystem.SelectSkill(_commandSelecter.Hover);
-
-                var nextState = _stateMachine.States[BattleState.SelectTarget];
-                _stateMachine.TransitionTo(nextState);
+                BattleDebugger.Current?.ClearText();
+                BattleDebugger.Current?.AppendText("CurrentState is SelectCommand");
+                BattleDebugger.Current?.AppendText($"\nCurrent: {_commandSelecter.Hover.Skill.Name}");
             }
-        }
-
-        private void UpdateDebugText()
-        {
-            BattleDebugger.Current?.ClearText();
-            BattleDebugger.Current?.AppendText("CurrentState is SelectCommand");
-            BattleDebugger.Current?.AppendText($"\nCurrent: {_commandSelecter.Hover.Skill.Name}");
         }
     }
 }

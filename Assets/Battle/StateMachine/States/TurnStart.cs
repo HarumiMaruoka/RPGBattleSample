@@ -1,23 +1,26 @@
 // 日本語対応
 using UnityEngine;
 
-namespace Battle
+namespace Sky
 {
-    public class TurnStart : BattleStateBase
+    namespace Battle
     {
-        public override void Enter()
+        public class TurnStart : BattleStateBase
         {
-            BattleDebugger.Current?.ClearText();
-            BattleDebugger.Current?.AppendText("CurrentState is TurnStart");
-            // カウントを更新
-            _battleSystem.UpdateActorCounters();
-        }
-        public override void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Return))
+            public override void Enter()
             {
-                var nextState = _stateMachine.States[BattleState.SelectActor];
-                _stateMachine.TransitionTo(nextState);
+                BattleDebugger.Current?.ClearText();
+                BattleDebugger.Current?.AppendText("CurrentState is TurnStart");
+                // カウントを更新
+                _battleSystem.UpdateActorCounters();
+            }
+            public override void Update()
+            {
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    var nextState = _stateMachine.States[BattleState.SelectActor];
+                    _stateMachine.TransitionTo(nextState);
+                }
             }
         }
     }

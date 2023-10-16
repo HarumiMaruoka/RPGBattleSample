@@ -1,22 +1,24 @@
 // 日本語対応
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-namespace Battle
+namespace Sky
 {
-    public class Win : BattleStateBase
+    namespace Battle
     {
-
-        public override void Enter()
+        public class Win : BattleStateBase
         {
-            BattleDebugger.Current?.ClearText();
-            BattleDebugger.Current?.AppendText("CurrentState is Win");
-        }
-        public override void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Return))
+            public override void Enter()
             {
-                var nextState = _stateMachine.States[BattleState.Others];
-                _stateMachine.TransitionTo(nextState);
+                BattleDebugger.Current?.ClearText();
+                BattleDebugger.Current?.AppendText("CurrentState is Win");
+            }
+            public override void Update()
+            {
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    SceneManager.LoadScene("Field Test Scene");
+                }
             }
         }
     }

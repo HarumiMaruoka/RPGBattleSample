@@ -1,5 +1,6 @@
 // 日本語対応
 using UnityEngine;
+using Sky.DataBase;
 
 [DefaultExecutionOrder(-100)]
 public class GameInitializer : MonoBehaviour

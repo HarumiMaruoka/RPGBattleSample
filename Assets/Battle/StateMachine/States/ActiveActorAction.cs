@@ -1,42 +1,44 @@
 // 日本語対応
 using Cysharp.Threading.Tasks;
 
-namespace Battle
+namespace Sky
 {
-    public class ActiveActorAction : BattleStateBase
+    namespace Battle
     {
-        public override async void Enter()
+        public class ActiveActorAction : BattleStateBase
         {
-            BattleDebugger.Current?.ClearText();
-            BattleDebugger.Current?.AppendText("CurrentState is Action");
-
-            // ActiveActorが持つ SelectedSkillの効果を SelectedTargetsに対して適用する。
-
-            var actor = _battleSystem.ActiveActor;
-            var skill = _battleSystem.SelectedSkill.Skill;
-            var targets = _battleSystem.SelectedTargets;
-
-            await skill.Effect.Play(skill, actor, targets, _gameRunner.GetCancellationTokenOnDestroy());
-
-            Transition();
-        }
-
-        private void Transition()
-        {
-            BattleStateBase nextState = null;
-            if (_battleSystem.IsVictory)
+            public override async void Enter()
             {
-                nextState = _stateMachine.States[BattleState.Win];
+                BattleDebugger.Current?.ClearText();
+                BattleDebugger.Current?.AppendText("CurrentState is Action");
+
+                // ActiveActorが持つ SelectedSkillの効果を SelectedTargetsに対して適用する。
+                var actor = _battleSystem.ActiveActor;
+                var skill = _battleSystem.SelectedSkill.Skill;
+                var targets = _battleSystem.SelectedTargets;
+
+                await skill.Effect.Play(skill, actor, targets, _gameRunner.GetCancellationTokenOnDestroy());
+
+                Transition();
             }
-            else if (_battleSystem.IsDefeat)
+
+            private void Transition()
             {
-                nextState = _stateMachine.States[BattleState.Lose];
+                BattleStateBase nextState = null;
+                if (_battleSystem.IsVictory)
+                {
+                    nextState = _stateMachine.States[BattleState.Win];
+                }
+                else if (_battleSystem.IsDefeat)
+                {
+                    nextState = _stateMachine.States[BattleState.Lose];
+                }
+                else
+                {
+                    nextState = _stateMachine.States[BattleState.TurnEnd];
+                }
+                _stateMachine.TransitionTo(nextState);
             }
-            else
-            {
-                nextState = _stateMachine.States[BattleState.TurnEnd];
-            }
-            _stateMachine.TransitionTo(nextState);
         }
     }
 }

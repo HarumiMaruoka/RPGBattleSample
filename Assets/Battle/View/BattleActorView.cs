@@ -1,5 +1,5 @@
 // 日本語対応
-using Battle;
+using Sky.Battle;
 using UnityEngine;
 using UnityEngine.UI;
 

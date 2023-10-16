@@ -1,6 +1,4 @@
 // 日本語対応
-using Battle;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 

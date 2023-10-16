@@ -1,17 +1,20 @@
 // 日本語対応
 
-namespace Battle
+namespace Sky
 {
-    public class BattleStateBase : State
+    namespace Battle
     {
-        protected GameRunner _gameRunner = null;
-        protected BattleRunner _battleRunner = null;
-        protected BattleSystem _battleSystem = null;
-        protected BattleStateMachine _stateMachine = null;
-
-        public void Initialize(GameRunner gameRunner, BattleSystem battleSystem, BattleRunner battleRunner, BattleStateMachine stateMachine)
+        public class BattleStateBase : State
         {
-            _gameRunner = gameRunner; _battleSystem = battleSystem; _battleRunner = battleRunner; _stateMachine = stateMachine;
+            protected GameRunner _gameRunner = null;
+            protected BattleRunner _battleRunner = null;
+            protected BattleSystem _battleSystem = null;
+            protected BattleStateMachine _stateMachine = null;
+
+            public void Initialize(GameRunner gameRunner, BattleSystem battleSystem, BattleRunner battleRunner, BattleStateMachine stateMachine)
+            {
+                _gameRunner = gameRunner; _battleSystem = battleSystem; _battleRunner = battleRunner; _stateMachine = stateMachine;
+            }
         }
     }
 }

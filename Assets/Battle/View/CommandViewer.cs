@@ -1,7 +1,7 @@
 // 日本語対応
 using System.Collections.Generic;
 using UnityEngine;
-using Battle;
+using Sky.Battle;
 
 public class CommandViewer : MonoBehaviour
 {

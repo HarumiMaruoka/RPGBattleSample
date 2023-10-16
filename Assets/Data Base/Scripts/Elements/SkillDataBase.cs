@@ -1,16 +1,16 @@
 // 日本語対応
-using Skill;
+using Sky.Skill;
 using System.Collections.Generic;
 
 public class SkillDataBase
 {
-    private readonly List<SkillModel> _allSkillCollection = new List<SkillModel>();
-    private readonly Dictionary<int, SkillModel> _idToSkill = new Dictionary<int, SkillModel>();
-    private readonly Dictionary<string, SkillModel> _nameToSkill = new Dictionary<string, SkillModel>();
+    private readonly List<SkillBasicData> _allSkillCollection = new List<SkillBasicData>();
+    private readonly Dictionary<int, SkillBasicData> _idToSkill = new Dictionary<int, SkillBasicData>();
+    private readonly Dictionary<string, SkillBasicData> _nameToSkill = new Dictionary<string, SkillBasicData>();
 
-    public IReadOnlyList<SkillModel> AllSkillList => _allSkillCollection;
-    public IReadOnlyDictionary<int, SkillModel> IDToSkill => _idToSkill;
-    public IReadOnlyDictionary<string, SkillModel> NameToSkill => _nameToSkill;
+    public IReadOnlyList<SkillBasicData> AllSkillList => _allSkillCollection;
+    public IReadOnlyDictionary<int, SkillBasicData> IDToSkill => _idToSkill;
+    public IReadOnlyDictionary<string, SkillBasicData> NameToSkill => _nameToSkill;
 
     public void Initialize(List<string[]> csvData)
     {
@@ -20,7 +20,7 @@ public class SkillDataBase
             string name = csvData[i][1];       // 名前の取得
 
             // Skillを生成する。
-            var skill = SkillModel.CreateSkill(csvData[i]);
+            var skill = SkillBasicData.CreateSkill(csvData[i]);
 
             // 各コレクションへ登録する。
             _allSkillCollection.Add(skill);

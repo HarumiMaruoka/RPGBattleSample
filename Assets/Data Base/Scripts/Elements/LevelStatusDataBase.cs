@@ -1,6 +1,6 @@
 // 日本語対応
 using System.Collections.Generic;
-using Actor;
+using Sky.Actor;
 
 public class LevelStatusDataBase
 {

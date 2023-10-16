@@ -1843,6 +1843,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 667378339}
     - target: {fileID: 2674743807315578820, guid: f4d4f855053ecc34fb820be83f2964b3, type: 3}
+      propertyPath: _raycast._maxDistance
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2674743807315578820, guid: f4d4f855053ecc34fb820be83f2964b3, type: 3}
       propertyPath: _raycast._layerMask.m_Bits
       value: 128
       objectReference: {fileID: 0}

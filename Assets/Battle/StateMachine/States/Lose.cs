@@ -1,21 +1,24 @@
 // 日本語対応
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-namespace Battle
+namespace Sky
 {
-    public class Lose : BattleStateBase
+    namespace Battle
     {
-        public override void Enter()
+        public class Lose : BattleStateBase
         {
-            BattleDebugger.Current?.ClearText();
-            BattleDebugger.Current?.AppendText("CurrentState is Lose");
-        }
-        public override void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Return))
+            public override void Enter()
             {
-                var nextState = _stateMachine.States[BattleState.Others];
-                _stateMachine.TransitionTo(nextState);
+                BattleDebugger.Current?.ClearText();
+                BattleDebugger.Current?.AppendText("CurrentState is Lose");
+            }
+            public override void Update()
+            {
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    SceneManager.LoadScene("Field Test Scene");
+                }
             }
         }
     }

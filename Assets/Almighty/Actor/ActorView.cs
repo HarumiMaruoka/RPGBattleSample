@@ -1,13 +1,16 @@
 // 日本語対応
 using UnityEngine;
-using Actor;
+using Sky.Actor;
 
-public class ActorView : MonoBehaviour
+namespace Sky
 {
-    private ActorModel _actor = null;
-
-    public void Initialize(ActorModel model)
+    public class ActorView : MonoBehaviour
     {
-        _actor = model;
+        private ActorModel _actor = null;
+
+        public void Initialize(ActorModel model)
+        {
+            _actor = model;
+        }
     }
 }

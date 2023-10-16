@@ -1,6 +1,6 @@
 // 日本語対応
 using UnityEngine;
-using Battle;
+using Sky.Battle;
 
 public class BattleRunner : MonoBehaviour
 {

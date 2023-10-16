@@ -1,21 +1,24 @@
 // 日本語対応
 using UnityEngine;
 
-namespace Battle
+namespace Sky
 {
-    public class Others : BattleStateBase
+    namespace Battle
     {
-        public override void Enter()
+        public class Others : BattleStateBase
         {
-            BattleDebugger.Current?.ClearText();
-            BattleDebugger.Current?.AppendText("CurrentState is Others");
-        }
-        public override void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Return))
+            public override void Enter()
             {
-                var nextState = _stateMachine.States[BattleState.BattleStart];
-                _stateMachine.TransitionTo(nextState);
+                BattleDebugger.Current?.ClearText();
+                BattleDebugger.Current?.AppendText("CurrentState is Others");
+            }
+            public override void Update()
+            {
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    var nextState = _stateMachine.States[BattleState.BattleStart];
+                    _stateMachine.TransitionTo(nextState);
+                }
             }
         }
     }
